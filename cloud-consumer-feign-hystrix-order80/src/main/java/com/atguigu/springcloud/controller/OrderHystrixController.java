@@ -1,6 +1,7 @@
 package com.atguigu.springcloud.controller;
 
 import com.atguigu.springcloud.service.PaymentHystrixService;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
  */
 @RestController
 @Slf4j
-public class PaymentHystrixController {
+@DefaultProperties(defaultFallback = "payment_Global_FallbackMethod")
+public class OrderHystrixController {
 
     @Autowired
     private PaymentHystrixService paymentHystrixService;
@@ -27,9 +29,10 @@ public class PaymentHystrixController {
     }
 
     @GetMapping("/payment/hystrix/timeout/{id}")
-    @HystrixCommand(fallbackMethod = "paymentInfo_TimeOutHandler",commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
-    })
+//    @HystrixCommand(fallbackMethod = "paymentInfo_TimeOutHandler",commandProperties = {
+//            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
+//    })
+    @HystrixCommand()
     public String paymentInfo_TimeOut(@PathVariable("id") Integer id) {
         String result=paymentHystrixService.paymentInfo_TimeOut(id);
         return result;
@@ -37,5 +40,9 @@ public class PaymentHystrixController {
 
     public String paymentInfo_TimeOutHandler(Integer id){
         return "线程池："+Thread.currentThread().getName()+" 80_paymentInfo_TimeOutHandler,id"+id+"\t"+"服务出错";
+    }
+
+    public String payment_Global_FallbackMethod(){
+        return "Global异常处理信息，请稍后再试！";
     }
 }
