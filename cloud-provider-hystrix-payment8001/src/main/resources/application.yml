@@ -18,19 +18,7 @@ eureka:
     service-url:
 #      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7001.com:7001/eureka
       defaultZone: http://localhost:7001/eureka
-<<<<<<< HEAD
-  instance:
-    instance-id: payment8001
-    prefer-ip-address: true
-    #发送心跳包时间间隔
-    lease-expiration-duration-in-seconds: 1
-    #超过多少秒，删除服务
-    lease-renewal-interval-in-seconds: 2
-=======
->>>>>>> ribbon
 
-mybatis:
-  mapperLocations: classpath:mapper/*.xml
-  type-aliases-package: com.atguigu.springcloud.entity    # 所有Entity别名类所在包
+
 
 
