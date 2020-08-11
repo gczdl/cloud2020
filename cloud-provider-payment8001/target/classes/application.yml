@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: cloud-payment-service
+  zipkin:
+    base-url: http://172.18.1.53:9411
+    sleuth:
+      sampler:
+        probabillity: 1
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
     url: jdbc:mysql://47.103.223.103:3306/db2019?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
@@ -18,7 +23,6 @@ eureka:
     service-url:
 #      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7001.com:7001/eureka
       defaultZone: http://localhost:7001/eureka
-<<<<<<< HEAD
   instance:
     instance-id: payment8001
     prefer-ip-address: true
@@ -26,8 +30,6 @@ eureka:
     lease-expiration-duration-in-seconds: 1
     #超过多少秒，删除服务
     lease-renewal-interval-in-seconds: 2
-=======
->>>>>>> ribbon
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml

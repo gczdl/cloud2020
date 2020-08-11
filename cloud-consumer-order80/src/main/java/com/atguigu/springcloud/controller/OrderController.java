@@ -31,4 +31,10 @@ public class OrderController {
         log.info("******查询订单，id："+id);
         return restTemplate.getForObject(PAYMENT_URL+"/payment/get/"+id,CommonResult.class);
     }
+
+    @GetMapping("/consumer/payment/zipkin")
+    public String paymnetZipkin(){
+        String result=restTemplate.getForObject(PAYMENT_URL+"/payment/zipkin",String.class);
+        return result;
+    }
 }
